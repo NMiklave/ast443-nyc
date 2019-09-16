@@ -1,0 +1,935 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{lab0\_analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Lab 0 Data Analysis}\label{lab-0-data-analysis}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{astropy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{fits}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{curve\PYZus{}fit}
+        \PY{k+kn}{import} \PY{n+nn}{random} \PY{k}{as} \PY{n+nn}{rand}
+\end{Verbatim}
+
+
+    \subsection{4.1: Bias Frames}\label{bias-frames}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Importing data of 10 series of bias frames}
+         \PY{n}{data1}\PY{p}{,}\PY{n}{hdr1}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000001.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data2}\PY{p}{,}\PY{n}{hdr2}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000002.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data3}\PY{p}{,}\PY{n}{hdr3}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000003.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data4}\PY{p}{,}\PY{n}{hdr4}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000004.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data5}\PY{p}{,}\PY{n}{hdr5}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000005.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data6}\PY{p}{,}\PY{n}{hdr6}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000006.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data7}\PY{p}{,}\PY{n}{hdr7}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000007.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data8}\PY{p}{,}\PY{n}{hdr8}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000008.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data9}\PY{p}{,}\PY{n}{hdr9}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000009.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data10}\PY{p}{,}\PY{n}{hdr10}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{getdata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}series\PYZus{}0c.00000010.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Determining the stats of the stats of one bias frame}
+         \PY{n}{mu\PYZus{}1frames}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{data1}\PY{p}{)}
+         \PY{n}{sig\PYZus{}1frames}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{data1}\PY{p}{)}
+         \PY{n}{mode\PYZus{}1frames}\PY{o}{=}\PY{n+nb}{float}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{data1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{)}
+         \PY{n}{median\PYZus{}1frames}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{data1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mu\PYZus{}1frames}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median\PYZus{}1frames}\PY{p}{,} 
+               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode\PYZus{}1frames}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sig\PYZus{}1frames}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot histogram of counts}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{data1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{950}\PY{p}{,} \PY{l+m+mi}{1400}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{domain} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{950}\PY{p}{,} \PY{l+m+mi}{1400}\PY{p}{)}
+         \PY{n}{bias\PYZus{}gauss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n+nb}{pow}\PY{p}{(}\PY{p}{(}\PY{n}{mu\PYZus{}1frames}\PY{o}{\PYZhy{}}\PY{n}{domain}\PY{p}{)}\PY{o}{/}\PY{n}{sig\PYZus{}1frames}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{n}{sig\PYZus{}1frames}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{data1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{mu\PYZus{}1frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}1frames}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{950}\PY{p}{,} \PY{l+m+mi}{1400}\PY{p}{)}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{domain}\PY{p}{,} \PY{n}{bias\PYZus{}gauss}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{mu\PYZus{}10frames}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}1frames}\PY{p}{,} \PY{n}{mu\PYZus{}10frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}1frames}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{,} \PY{l+m+mf}{2e\PYZhy{}1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent Cut: }\PY{l+s+si}{\PYZob{}0:3.3f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{data1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{mu\PYZus{}1frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}1frames}\PY{p}{]}\PY{p}{)}
+               \PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{gain} \PY{o}{=} \PY{n}{hdr1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGAIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{mean\PYZus{}electron} \PY{o}{=} \PY{n}{mu\PYZus{}1frames}\PY{o}{*}\PY{n}{gain}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Electron Read Noise: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mean\PYZus{}electron}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean:  1003.8926982879639 
+Median:  1004.0 
+Mode:  1003.0 
+Standard Deviation: 12.503950831904326
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Percent Cut: 0.050\%
+Mean Electron Read Noise:  2068.0189584732057
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Taking the average of the 10 frames to make master\PYZus{}bias frame}
+         \PY{n}{master\PYZus{}bias}\PY{o}{=}\PY{p}{(}\PY{n}{data1}\PY{o}{+}\PY{n}{data2}\PY{o}{+}\PY{n}{data3}\PY{o}{+}\PY{n}{data4}\PY{o}{+}\PY{n}{data5}\PY{o}{+}\PY{n}{data6}\PY{o}{+}\PY{n}{data7}\PY{o}{+}\PY{n}{data8}\PY{o}{+}\PY{n}{data9}\PY{o}{+}\PY{n}{data10}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{} Determining the stats of the stats of the master\PYZus{}bias frame}
+         \PY{n}{mu\PYZus{}10frames}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{master\PYZus{}bias}\PY{p}{)}
+         \PY{n}{sig\PYZus{}10frames}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{master\PYZus{}bias}\PY{p}{)}
+         \PY{n}{mode\PYZus{}10frames}\PY{o}{=}\PY{n+nb}{float}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{master\PYZus{}bias}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{)}
+         \PY{n}{median\PYZus{}10frames}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{master\PYZus{}bias}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mu\PYZus{}10frames}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median\PYZus{}10frames}\PY{p}{,} 
+               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode\PYZus{}10frames}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation of 10:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sig\PYZus{}10frames}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Single Frame StdDev / Sqrt(N\PYZus{}frames): }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sig\PYZus{}1frames}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot histogram of counts}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{master\PYZus{}bias}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{950}\PY{p}{,} \PY{l+m+mi}{1400}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{domain} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{950}\PY{p}{,} \PY{l+m+mi}{1400}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{bias\PYZus{}gauss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n+nb}{pow}\PY{p}{(}\PY{p}{(}\PY{n}{mu\PYZus{}10frames}\PY{o}{\PYZhy{}}\PY{n}{domain}\PY{p}{)}\PY{o}{/}\PY{n}{sig\PYZus{}10frames}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{n}{sig\PYZus{}10frames}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{master\PYZus{}bias}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{mu\PYZus{}10frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}10frames}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{n}{mu\PYZus{}10frames}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}10frames}\PY{p}{,} \PY{n}{mu\PYZus{}10frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}10frames}\PY{p}{)}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{domain}\PY{p}{,} \PY{n}{bias\PYZus{}gauss}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{mu\PYZus{}10frames}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}10frames}\PY{p}{,} \PY{n}{mu\PYZus{}10frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}10frames}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{,} \PY{l+m+mf}{4e\PYZhy{}1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent Cut: }\PY{l+s+si}{\PYZob{}0:3.3f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{master\PYZus{}bias}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{mu\PYZus{}10frames}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{sig\PYZus{}10frames}\PY{p}{]}\PY{p}{)}
+               \PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}bias}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean:  1000.411618614197 
+Median:  999.7 
+Mode:  999.0 
+Standard Deviation of 10: 7.080617560970963
+Single Frame StdDev / Sqrt(N\_frames):  3.954096437957487
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Percent Cut: 0.089\%
+
+    \end{Verbatim}
+
+    \subsection{4.2: Dark Frames}\label{dark-frames}
+
+    The master dark frame is a median average of a series of dark frames at
+a given tempurature and exposure time. In this case the tempurature and
+time is \(0^\circ\) Celsius and \(30\) seconds, respectively. The master
+dark is made by taking the median value of all the frames for each
+individual pixel in our 1024 by 1024 image. We take the mean average to
+mitigate the effects of short lived, bright signals, such as cosmic
+rays, on our dark frames. This is because the mean is heavily influenced
+by outliers, especially so at low sample numbers such as our 10 dark
+frames.
+
+After creating the master dark, we plot a histogram of all the values
+and find the mean, median, mode, and standard deviation of it. Due to
+the size of the array it is plotted on a log scale to easily display the
+low number of pixels that had very high counts. In order to get a better
+look at the data, another histogram is created focusing on the values
+closer to the majority of the data. This range was determined by
+inspection. Despite the total histogram not resembling a gaussian, the
+calculated mean and standard deviation of the total master dark is used
+to create a gaussian distribution that is plotted over the normed
+histogram. In addition, the \(\pm3\sigma\) cutoff is plotted as well. A
+new data set was created by cutting out all the values that were outside
+of this \(3\sigma\) range, as it is likely that these were not due to
+random fluctuations in the data.
+
+Using this statistically significant data set, the mean, median, mode,
+and standard deviation were recalculated. It is noted that with this
+subset the mean, median, and mode hardly change (if at all) while the
+standard deviation decreases significantly due to the drop of clear
+outliers. It is found that of the 1024x1024 array, 1212 pixels fall
+outside of the \(3\sigma\) range, which corresponds to \(0.116\%\) of
+the pixels in the CCD camera being "hot".
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Open all the files and stick them in a list to loop over}
+        \PY{n}{dark1} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark2} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000002.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark3} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000003.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark4} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000004.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark5} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000005.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark6} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000006.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark7} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000007.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark8} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000008.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark9} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000009.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark10} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}10series\PYZus{}0c\PYZus{}0m30s.00000010.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{dark1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark3}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark4}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark5}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} 
+                     \PY{n}{dark6}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark7}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark8}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark9}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{dark10}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Make master median dark frame}
+        \PY{n}{master\PYZus{}dark} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{dark1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}     \PY{c+c1}{\PYZsh{} Blank array with same shape as others}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{)}\PY{p}{:}                            \PY{c+c1}{\PYZsh{} Index over one axis}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{)}\PY{p}{:}                        \PY{c+c1}{\PYZsh{} Index over the other}
+                \PY{n}{indices\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}                        \PY{c+c1}{\PYZsh{} Make a list of the values in the i,j pixel}
+                \PY{k}{for} \PY{n}{dark} \PY{o+ow}{in} \PY{n}{dark\PYZus{}list}\PY{p}{:}
+                    \PY{n}{indices\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dark}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                \PY{n}{master\PYZus{}dark}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{indices\PYZus{}list}\PY{p}{)} \PY{c+c1}{\PYZsh{} Add the median value for the i,j pixel }
+                                                            \PY{c+c1}{\PYZsh{}   to master dark at the right location}
+        
+        \PY{c+c1}{\PYZsh{} Close all the files}
+        \PY{n}{dark1}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark2}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark3}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark4}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark5}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark6}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark7}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark8}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark9}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark10}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Range of count values: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ to }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot Histograms}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{311}\PY{p}{)}
+        \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{312}\PY{p}{)}
+        \PY{n}{ax3} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{313}\PY{p}{)}
+        \PY{n}{hist1} \PY{o}{=} \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{hist2} \PY{o}{=} \PY{n}{ax2}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1001}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{1001}\PY{p}{,} \PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n+nb}{range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normed Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{63000}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median Master Dark Count Histogram}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median Master Dark Around Mean Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normed Master Dark Statistics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Counts on a Pixel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Counts on a Pixel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Counts on a Pixel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Pixels with the Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Pixels with the Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent of Pixels with the Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Find statistics of master dark}
+        \PY{n}{mean1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{median1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{mode1} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{)}
+        \PY{n}{stddev1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mean1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stddev1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Define a gaussian with the same statistics and overlay it on normed distribution}
+        \PY{n}{domain} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{3000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{gaussian} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{n+nb}{pow}\PY{p}{(}\PY{p}{(}\PY{n}{domain} \PY{o}{\PYZhy{}} \PY{n}{mean1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{stddev1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{stddev1}\PY{o}{*}\PY{n}{stddev1}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{domain}\PY{p}{,} \PY{n}{gaussian}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution Gaussian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{mean1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{stddev1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{pm3}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sigma\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{mean1}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{stddev1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2500}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{l+m+mf}{10e\PYZhy{}7}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+        \PY{n}{ax3}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Take the +/\PYZhy{} 3 sigma value to use later}
+        \PY{n}{leftcutoff} \PY{o}{=} \PY{n}{mean1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{stddev1}
+        \PY{n}{rightcutoff} \PY{o}{=} \PY{n}{mean1}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{stddev1}
+        
+        \PY{c+c1}{\PYZsh{} Display plot}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Range of count values:  1002.0  to  62865.0
+Mean:  1025.4666481018066 
+Median:  1020.0 
+Mode:  1019.0 
+Standard Deviation: 155.56164951672068
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} How many pixels are out of the count uncertainty to 3 sigma and what fraction is that?}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 sigma range: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{leftcutoff}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ to }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rightcutoff}\PY{p}{)}
+        \PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZlt{}}\PY{n}{rightcutoff} \PY{o+ow}{and} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{leftcutoff}\PY{p}{]} \PY{c+c1}{\PYZsh{} Only take value in }
+                                                                                                       \PY{c+c1}{\PYZsh{}  uncertainty range}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of pixels out of 3 sigma range: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent of pixels in 3 sigma range: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Find statistics for 3 sigma cut}
+        \PY{n}{mean2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian}\PY{p}{)}
+        \PY{n}{median2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian}\PY{p}{)}
+        \PY{n}{mode2} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{)}       \PY{c+c1}{\PYZsh{} Specify to get just the value as a float}
+        \PY{n}{stddev2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{master\PYZus{}dark\PYZus{}in\PYZus{}gaussian}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Old Statistics}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mean1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stddev1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{New Statistics}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mean2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stddev2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3 sigma range:  558.7816995516446  to  1492.1515966519687
+Number of pixels out of 3 sigma range:  1212
+Percent of pixels in 3 sigma range:  0.9988441467285156
+
+Old Statistics
+Mean:  1025.4666481018066 
+Median:  1020.0 
+Mode:  1019.0 
+Standard Deviation: 155.56164951672068
+
+New Statistics
+Mean:  1023.0945912786767 
+Median:  1020.0 
+Mode:  1019.0 
+Standard Deviation: 20.290142657098027
+
+    \end{Verbatim}
+
+    Using the found \(3\sigma\) range above, a single dark frame that was
+used to make the master dark is analyzed. The whereas for the master
+dark, 1212 pixels fell out of the 99.8\% undertainty range, for input
+frame 7, 1229 pixels fell out of the range. This corrosponds to
+\(0.118\%\) of the pixels being hot or dead, instead of the \(0.116\%\).
+The mean for this frame differs from the master by
+\[\textrm{% Difference}=\frac{\bar{x}_\textrm{frame}-\bar{x}_\textrm{master}}{\bar{x}_\textrm{master}}=-0.025\%.\]
+The mean for this dark frame is \(0.025\%\) lower than the mean for the
+master dark. Likewise we can find the percent difference in the standard
+deviation for frame 7 compared to the master dark to be \(6.539\%\)
+higher.
+
+These do not change by very much since we took the master dark to be the
+pixel-wise median average of the 10 input frames. Since each frame was
+taken under the same conditions, they would ideally all be identical if
+dark current was regular as opposed to probabilistic. Since it is
+probabilistic, no input frame is expected to hold the mean value for
+significantly more pixels than any other frame. This leads to the master
+dark distribution closely modelling the distribution of an input frame,
+with more accurately determined parameters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Take the first dark frame, apply the same 3 sigma cutoff from master dark, what are stats?}
+        \PY{n}{input\PYZus{}dark} \PY{o}{=} \PY{n}{dark\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+        \PY{n}{input\PYZus{}dark\PYZus{}cut} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{input\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZlt{}}\PY{n}{rightcutoff} \PY{o+ow}{and} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{leftcutoff}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of pixels out of 3 sigma range: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{input\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{input\PYZus{}dark\PYZus{}cut}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent of pixels in 3 sigma range: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{input\PYZus{}dark\PYZus{}cut}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{input\PYZus{}dark}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{mean3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{input\PYZus{}dark\PYZus{}cut}\PY{p}{)}
+        \PY{n}{median3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{input\PYZus{}dark\PYZus{}cut}\PY{p}{)}
+        \PY{n}{mode3} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{input\PYZus{}dark\PYZus{}cut}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{)}       \PY{c+c1}{\PYZsh{} Specify to get just the value as a float}
+        \PY{n}{stddev3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{input\PYZus{}dark\PYZus{}cut}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Cut Input Frame Statistics}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mean3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median3}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stddev3}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Master Dark Statistics}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mean2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{median2}\PY{p}{,} 
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mode: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mode2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Standard Deviation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stddev2}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Mean Diff: }\PY{l+s+si}{\PYZob{}0:4.3f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{n}{mean3}\PY{o}{\PYZhy{}}\PY{n}{mean2}\PY{p}{)}\PY{o}{/}\PY{n}{mean2}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StdDev Diff: }\PY{l+s+si}{\PYZob{}0:4.3f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{n}{stddev3}\PY{o}{\PYZhy{}}\PY{n}{stddev2}\PY{p}{)}\PY{o}{/}\PY{n}{stddev2}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of pixels out of 3 sigma range:  1229
+Percent of pixels in 3 sigma range:  0.9988279342651367
+
+Cut Input Frame Statistics
+Mean:  1022.8360944367054 
+Median:  1020.0 
+Mode:  1019.0 
+Standard Deviation: 21.616848464553968
+
+Master Dark Statistics
+Mean:  1023.0945912786767 
+Median:  1020.0 
+Mode:  1019.0 
+Standard Deviation: 20.290142657098027
+
+Mean Diff: -0.025\%
+StdDev Diff: 6.539\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Open all the files}
+        \PY{n}{dark0m10s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}10s.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark1m00s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}1m.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark1m30s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}1m30s.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark2m00s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}2m.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark2m30s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}2m30s.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark3m00s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}3m.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark3m30s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}3m30s.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark4m00s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}4m.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark4m30s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}4m30s.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark5m00s} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}series\PYZus{}0c\PYZus{}5m.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark\PYZus{}series} \PY{o}{=} \PY{p}{[}\PY{n}{dark0m10s}\PY{p}{,} \PY{n}{dark1m00s}\PY{p}{,} \PY{n}{dark1m30s}\PY{p}{,} \PY{n}{dark2m00s}\PY{p}{,} \PY{n}{dark2m30s}\PY{p}{,}
+                       \PY{n}{dark3m00s}\PY{p}{,} \PY{n}{dark3m30s}\PY{p}{,} \PY{n}{dark4m00s}\PY{p}{,} \PY{n}{dark4m30s}\PY{p}{,} \PY{n}{dark5m00s}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Find mean, std, exptime of each exposure\PYZhy{}bias}
+        \PY{c+c1}{\PYZsh{} Make an array of only the valid values under the 3 sigma cutoff}
+        \PY{n}{dark\PYZus{}currents}\PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{exp\PYZus{}times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{means} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{sig\PYZus{}on\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{dark\PYZus{}series}\PY{p}{:}
+            \PY{n}{dark\PYZus{}current} \PY{o}{=} \PY{n}{file}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{\PYZhy{}}\PY{n}{master\PYZus{}bias}
+            
+            \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dark\PYZus{}current}\PY{p}{)}
+            \PY{n}{stddev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{dark\PYZus{}current}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dark\PYZus{}current}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{dark\PYZus{}currents}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{dark\PYZus{}current}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{mean}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{stddev}\PY{p}{]}\PY{p}{)}
+            \PY{n}{exp\PYZus{}times}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{file}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{header}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EXPTIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{means}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mean}\PY{p}{)}
+            \PY{n}{sig\PYZus{}on\PYZus{}mean}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stddev}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dark\PYZus{}currents}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}0:3.0f\PYZcb{}}\PY{l+s+s1}{s Frame    Min: }\PY{l+s+si}{\PYZob{}1:4.2f\PYZcb{}}\PY{l+s+s1}{     Max: }\PY{l+s+si}{\PYZob{}2:5.2f\PYZcb{}}\PY{l+s+s1}{    Median: }\PY{l+s+si}{\PYZob{}3:3.3f\PYZcb{}}\PY{l+s+s1}{    StdDev: }\PY{l+s+si}{\PYZob{}4:4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                    \PY{n}{exp\PYZus{}times}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{dark\PYZus{}current}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{dark\PYZus{}current}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{means}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{sig\PYZus{}on\PYZus{}mean}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Close all the files}
+        \PY{n}{dark0m10s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark1m00s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark1m30s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark2m00s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark2m30s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark3m00s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark3m30s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark4m00s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark4m30s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark5m00s}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ 10s Frame    Min: 147.40     Max: 20492.70    Median: 7.691    StdDev: 0.000088
+ 60s Frame    Min: 144.60     Max: 19857.60    Median: 52.260    StdDev: 0.000234
+ 90s Frame    Min: 137.10     Max: 4513.70    Median: 78.029    StdDev: 0.000315
+120s Frame    Min: 150.50     Max: 15093.80    Median: 103.740    StdDev: 0.000389
+150s Frame    Min: 142.00     Max: 5387.10    Median: 129.500    StdDev: 0.000449
+180s Frame    Min: 143.60     Max: 2776.90    Median: 155.055    StdDev: 0.000501
+210s Frame    Min: 146.00     Max: 4551.20    Median: 180.666    StdDev: 0.000561
+240s Frame    Min: 138.40     Max: 2751.30    Median: 205.205    StdDev: 0.000614
+270s Frame    Min: 127.40     Max: 6430.00    Median: 231.104    StdDev: 0.000663
+300s Frame    Min: 148.20     Max: 12060.80    Median: 256.071    StdDev: 0.000711
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Linear regression with y\PYZhy{}axis errors}
+        \PY{k}{def} \PY{n+nf}{line}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{n}{b}
+        
+        \PY{c+c1}{\PYZsh{} Get optimal ab params and covar matrix, make it a function}
+        \PY{n}{popt}\PY{p}{,} \PY{n}{pcov} \PY{o}{=} \PY{n}{curve\PYZus{}fit}\PY{p}{(}\PY{n}{line}\PY{p}{,} \PY{n}{exp\PYZus{}times}\PY{p}{,} \PY{n}{means}\PY{p}{,} \PY{n}{sigma}\PY{o}{=}\PY{n}{sig\PYZus{}on\PYZus{}mean}\PY{p}{)}
+        \PY{n}{fit\PYZus{}err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{pcov}\PY{p}{)}\PY{p}{)}
+        \PY{n}{dark\PYZus{}current\PYZus{}function} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{popt}\PY{p}{)}
+        \PY{n}{dark\PYZus{}current\PYZus{}lo} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{popt} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{fit\PYZus{}err}\PY{p}{)}
+        \PY{n}{dark\PYZus{}current\PYZus{}hi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{popt} \PY{o}{+} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{fit\PYZus{}err}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Make the scatter plot with error bars}
+        \PY{n}{time} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{330}\PY{p}{,} \PY{l+m+mi}{330}\PY{p}{)}
+        
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{exp\PYZus{}times}\PY{p}{,} \PY{n}{means}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{sig\PYZus{}on\PYZus{}mean}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Observed Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dark Frame Exposure Time [s]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Electrons Detected [counts]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{time}\PY{p}{,} \PY{n}{dark\PYZus{}current\PYZus{}function}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear Fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{time}\PY{p}{,} \PY{n}{dark\PYZus{}current\PYZus{}lo}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{,} \PY{n}{dark\PYZus{}current\PYZus{}hi}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Sigma Range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dark Current = }\PY{l+s+si}{\PYZob{}0:4.4f\PYZcb{}}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}1:4.4f\PYZcb{}}\PY{l+s+s1}{ e/pix/s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{popt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}err}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept = }\PY{l+s+si}{\PYZob{}0:4.4f\PYZcb{}}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}1:4.4f\PYZcb{}}\PY{l+s+s1}{. Should be 0 if perfect Camera.}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{popt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}err}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dark Current = 0.8639 +/- 0.0033 e/pix/s
+Intercept = -0.7234 +/- 0.2608. Should be 0 if perfect Camera.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Open files}
+        \PY{n}{bias\PYZus{}10c} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/bias\PYZus{}1series\PYZus{}10c\PYZus{}0s.00000001.BIAS.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dark\PYZus{}10c} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/dark\PYZus{}1series\PYZus{}10c\PYZus{}5m.00000001.DARK.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Subtract bias}
+        \PY{n}{dark\PYZus{}corrected\PYZus{}10c} \PY{o}{=} \PY{n}{dark\PYZus{}10c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data} \PY{o}{\PYZhy{}} \PY{n}{bias\PYZus{}10c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}
+        
+        \PY{c+c1}{\PYZsh{} Find mean and stddev}
+        \PY{n}{mean4} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dark\PYZus{}corrected\PYZus{}10c}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{stddev4} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{dark\PYZus{}corrected\PYZus{}10c}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} define domain and gaussian using stats}
+        \PY{n}{domain2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{500}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{gaussian2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{n+nb}{pow}\PY{p}{(}\PY{p}{(}\PY{n}{domain2} \PY{o}{\PYZhy{}} \PY{n}{mean4}\PY{p}{)}\PY{o}{/}\PY{n}{stddev4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{stddev4}\PY{o}{*}\PY{n}{stddev4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{fig = plt.figure(figsize=(18, 8))}
+        \PY{l+s+sd}{ax1 = fig.add\PYZus{}subplot(211)}
+        \PY{l+s+sd}{ax2 = fig.add\PYZus{}subplot(212)}
+        \PY{l+s+sd}{ax1.hist(dark\PYZus{}corrected\PYZus{}10c.flatten(), log=True, bins=3000)}
+        \PY{l+s+sd}{ax2.hist(dark\PYZus{}corrected\PYZus{}10c.flatten(), log=True, bins=3000, range=(0, 10000), density=True)}
+        \PY{l+s+sd}{ax2.plot(domain2, gaussian2)}
+        \PY{l+s+sd}{ax2.set\PYZus{}ylim(10e\PYZhy{}8, 10e\PYZhy{}3)}
+        \PY{l+s+sd}{ax2.set\PYZus{}xlim(0, 10000)}
+        \PY{l+s+sd}{ax2.axvline(x=mean4+3*stddev4, color=\PYZsq{}k\PYZsq{})}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} Plot to get dark current at 10c}
+        \PY{n}{err\PYZus{}on\PYZus{}mean} \PY{o}{=} \PY{n}{stddev4}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dark\PYZus{}corrected\PYZus{}10c}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{dark\PYZus{}10c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{header}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EXPTIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{mean}\PY{p}{]}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{err\PYZus{}on\PYZus{}mean}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Fit again}
+        \PY{n}{popt}\PY{p}{,} \PY{n}{pcov} \PY{o}{=} \PY{n}{curve\PYZus{}fit}\PY{p}{(}\PY{n}{line}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{dark\PYZus{}10c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{header}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EXPTIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{mean}\PY{p}{]}\PY{p}{,} \PY{n}{sigma}\PY{o}{=}\PY{p}{[}\PY{n}{err\PYZus{}on\PYZus{}mean}\PY{p}{,} \PY{n}{err\PYZus{}on\PYZus{}mean}\PY{p}{]}\PY{p}{)}
+        \PY{n}{fit\PYZus{}err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{pcov}\PY{p}{)}\PY{p}{)}
+        \PY{n}{dark\PYZus{}current\PYZus{}10c\PYZus{}function} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{popt}\PY{p}{)}
+        \PY{n}{dark\PYZus{}current\PYZus{}10c\PYZus{}lo} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{popt} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{fit\PYZus{}err}\PY{p}{)}
+        \PY{n}{dark\PYZus{}current\PYZus{}10c\PYZus{}hi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{poly1d}\PY{p}{(}\PY{n}{popt} \PY{o}{+} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{fit\PYZus{}err}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot fit line}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{dark\PYZus{}10c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{header}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EXPTIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{dark\PYZus{}current\PYZus{}10c\PYZus{}function}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{dark\PYZus{}10c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{header}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EXPTIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dark Current = }\PY{l+s+si}{\PYZob{}0:4.4f\PYZcb{}}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}1:4.4f\PYZcb{}}\PY{l+s+s1}{ e/pix/s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{popt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}err}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept = }\PY{l+s+si}{\PYZob{}0:4.4f\PYZcb{}}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}1:4.4f\PYZcb{}}\PY{l+s+s1}{. Should be 0 if perfect Camera.}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{popt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}err}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Close files}
+        \PY{n}{bias\PYZus{}10c}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dark\PYZus{}10c}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dark Current = 0.8536 +/-  inf e/pix/s
+Intercept = 0.0000 +/-  inf. Should be 0 if perfect Camera.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/nicholas/documents/schoolwork/ast443/ast443-nyc/pyenv/lib/python3.6/site-packages/scipy/optimize/minpack.py:795: OptimizeWarning: Covariance of the parameters could not be estimated
+  category=OptimizeWarning)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.3: Imaging Flat Fields}\label{imaging-flat-fields}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}initialize lists}
+         \PY{n}{filename}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000007.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000008.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000009.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000010.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000011.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000012.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000013.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000014.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000015.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/flat.00000016.FLAT.FIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{flatimage}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{10}
+         \PY{n}{imagedata}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{}read .fits files}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{flatimage}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{imagedata}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{flatimage}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}
+                 
+         \PY{c+c1}{\PYZsh{}take average of 10 flat\PYZhy{}fields}
+         \PY{n}{avgcounts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{imagedata}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{avg}\PY{o}{=}\PY{n}{fits}\PY{o}{.}\PY{n}{PrimaryHDU}\PY{p}{(}\PY{n}{avgcounts}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}normalize to typical counts level(mean), take relative sensitivity(ratio) of each pixel}
+         \PY{n}{avgcounts1}\PY{o}{=}\PY{n}{avgcounts}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}    \PY{c+c1}{\PYZsh{} make 2d to 1d}
+         \PY{n}{mean}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{avgcounts1}\PY{p}{)}
+         \PY{n}{std}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{avgcounts1}\PY{p}{)}
+         \PY{n}{ratio}\PY{o}{=}\PY{n}{avgcounts}\PY{o}{/}\PY{n}{mean}
+         
+         \PY{c+c1}{\PYZsh{}plot histo of the counts for master flat\PYZhy{}field}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{avgcounts1}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{c+c1}{\PYZsh{}, range=[12000, 27000])}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of pixels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{3e\PYZhy{}8}\PY{p}{,} \PY{l+m+mf}{3e\PYZhy{}2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}plot relative sensitivity vs distance from the center}
+         \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{)}
+         \PY{n}{xc}\PY{p}{,}\PY{n}{yc}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{d}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{xc}\PY{o}{\PYZhy{}}\PY{l+m+mf}{512.5}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{p}{(}\PY{n}{yc}\PY{o}{\PYZhy{}}\PY{l+m+mf}{512.5}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{ratio}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.4: Bad Pixel Map}\label{bad-pixel-map}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{hot\PYZus{}map} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{dead\PYZus{}map} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{master\PYZus{}dark}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{master\PYZus{}dark}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{rightcutoff}\PY{p}{:}
+                     \PY{n}{hot\PYZus{}map}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{hot\PYZus{}map}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}            
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}dark}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{avg}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{mean}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{std} \PY{o+ow}{or} \PY{n}{avg}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{mean} \PY{o}{+} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{std}\PY{p}{:}
+                     \PY{n}{dead\PYZus{}map}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{dead\PYZus{}map}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mf}{7.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hot Pixel Map}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dead Pixel Map}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{hot\PYZus{}map}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{dead\PYZus{}map}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.6: Calibration Strategies}\label{calibration-strategies}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
