@@ -1,3 +1,0 @@
-mercury_.00000000.FIT
-mercury_.00000001.FIT
-mercury_.00000002.FIT
